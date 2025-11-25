@@ -1,0 +1,19 @@
+.hero-section {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center;
+    background-size: cover;
+    padding: 100px 0;
+  }
+  
+  .hero-section h1 {
+    font-weight: 700;
+  }
+  
+  .hero-section p {
+    font-size: 1.25rem;
+  }
+  
+  .btn-lg {
+    padding: 1rem 2rem;
+    font-size: 1.25rem;
+  }
+  

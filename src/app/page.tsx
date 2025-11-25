@@ -1,66 +1,38 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import Hero from './components/Hero';
+import Link from 'next/link';
 
 export default function Home() {
+  const featuredServices = [
+    { id: 1, title: 'Graphic Design', description: 'Logos, posters, and more.', user: 'Alice', image: 'https://images.unsplash.com/photo-1572044162444-24c95c8859da?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+    { id: 2, title: 'Tutoring in Math', description: 'Calculus, Algebra, etc.', user: 'Bob', image: 'https://images.unsplash.com/photo-1509228468518-180dd4864904?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+    { id: 3, title: 'Coding Help', description: 'Python, JavaScript, and Java assignments.', user: 'Charlie', image: 'https://images.unsplash.com/photo-1534665482403-a909d0d97c67?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+  ];
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <>
+      <Hero />
+      <div className="container mt-5">
+        <h2 className="text-center mb-4">Featured Services</h2>
+        <div className="row">
+          {featuredServices.map((service) => (
+            <div key={service.id} className="col-md-4 mb-4">
+              <div className="card h-100">
+                <img src={service.image} className="card-img-top" alt={service.title} style={{ height: '200px', objectFit: 'cover' }} />
+                <div className="card-body">
+                  <h5 className="card-title">{service.title}</h5>
+                  <p className="card-text">{service.description}</p>
+                  <Link href={`/services/${service.id}`} className="btn btn-primary">
+                    Learn More
+                  </Link>
+                </div>
+                <div className="card-footer">
+                  <small className="text-muted">Offered by {service.user}</small>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      </div>
+    </>
   );
 }

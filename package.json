@@ -6,19 +6,31 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "db:generate": "drizzle-kit generate --config drizzle.config.ts",
+    "db:push": "drizzle-kit push --dialect=sqlite --schema=./src/app/models/schema.ts --url=./sqlite.db"
   },
   "dependencies": {
+    "better-sqlite3": "^12.4.6",
+    "bootstrap": "^5.3.8",
+    "bootstrap-icons": "^1.13.1",
+    "drizzle-orm": "^0.44.7",
     "next": "16.0.4",
     "react": "19.2.0",
-    "react-dom": "19.2.0"
+    "react-dom": "19.2.0",
+    "sass": "^1.94.2",
+    "sqlite3": "^5.1.7"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/sqlite3": "^3.1.11",
+    "drizzle-kit": "^0.31.7",
     "eslint": "^9",
     "eslint-config-next": "16.0.4",
-    "typescript": "^5"
+    "tsx": "^4.19.0",
+    "typescript": "^5.9.3"
   }
 }
+
