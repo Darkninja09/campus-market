@@ -3,10 +3,10 @@ import { NextRequest, NextResponse } from 'next/server';
 import { db } from '../../lib/db';
 import { users } from '../../models/schema';
 import { eq } from 'drizzle-orm';
-import { getAuthToken, verifyToken } from '../../lib/auth';
+import { verifyToken } from '../../lib/auth';
 
 export async function GET(req: NextRequest) {
-  const token = getAuthToken();
+  const token = req.cookies.get('auth_token')?.value;
 
   if (!token) {
     return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
@@ -33,7 +33,7 @@ export async function GET(req: NextRequest) {
 }
 
 export async function PUT(req: NextRequest) {
-  const token = getAuthToken();
+  const token = req.cookies.get('auth_token')?.value;
 
   if (!token) {
     return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });

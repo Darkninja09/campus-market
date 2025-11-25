@@ -16,10 +16,6 @@ export function verifyToken(token: string) {
   }
 }
 
-export function getAuthToken() {
-  return cookies().get('auth_token')?.value;
-}
-
 export function removeAuthCookie() {
   cookies().delete('auth_token');
 }
