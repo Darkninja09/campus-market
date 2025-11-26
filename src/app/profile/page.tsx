@@ -2,12 +2,14 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export default function ProfilePage() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [college, setCollege] = useState('');
+  const router = useRouter();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -52,6 +54,16 @@ export default function ProfilePage() {
     }
   };
 
+  const handleLogout = async () => {
+    const response = await fetch('/api/logout', {
+      method: 'POST',
+    });
+
+    if (response.ok) {
+      router.push('/');
+    }
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -90,12 +102,18 @@ export default function ProfilePage() {
                 className="form-control"
                 id="college"
                 value={college}
-                onChange={(e) => setCollege(e.ટાર્ગેટ.value)}
+                onChange={(e) => setCollege(e.target.value)}
                 required
               />
             </div>
             <button type="submit" className="btn btn-primary">Update College</button>
           </form>
+          <div className="mt-3">
+            <button onClick={handleLogout} className="btn btn-danger">
+              <i className="bi bi-box-arrow-right me-1"></i>
+              Logout
+            </button>
+          </div>
           <hr />
           <h4>My Services</h4>
           <div className="row">

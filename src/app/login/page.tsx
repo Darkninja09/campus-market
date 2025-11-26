@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import '../components/Auth.css';
 
 export default function LoginPage() {
@@ -9,6 +10,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,10 +29,7 @@ export default function LoginPage() {
 
     if (response.ok) {
       setSuccess(data.message);
-      // redirect to profile page after 2 seconds
-      setTimeout(() => {
-        window.location.href = '/profile';
-      }, 2000);
+      router.push('/profile');
     } else {
       setError(data.message);
     }

@@ -2,9 +2,27 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 export default function Navbar() {
   const pathname = usePathname();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const token = document.cookie.split('; ').find(row => row.startsWith('auth_token='));
+    setIsAuthenticated(!!token);
+  }, [pathname]);
+
+  const handleLogout = async () => {
+    const response = await fetch('/api/logout', {
+      method: 'POST',
+    });
+
+    if (response.ok) {
+      setIsAuthenticated(false);
+      window.location.href = '/';
+    }
+  };
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -38,24 +56,37 @@ export default function Navbar() {
                 Services
               </Link>
             </li>
-            <li className="nav-item">
-              <Link href="/profile" className={`nav-link ${pathname === '/profile' ? 'active' : ''}`}>
-                <i className="bi bi-person-circle me-1"></i>
-                Profile
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link href="/login" className="btn btn-primary ms-lg-2">
-                <i className="bi bi-box-arrow-in-right me-1"></i>
-                Login
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link href="/signup" className="btn btn-success ms-lg-2">
-                <i className="bi bi-person-plus me-1"></i>
-                Sign Up
-              </Link>
-            </li>
+            {isAuthenticated ? (
+              <>
+                <li className="nav-item">
+                  <Link href="/profile" className={`nav-link ${pathname === '/profile' ? 'active' : ''}`}>
+                    <i className="bi bi-person-circle me-1"></i>
+                    Profile
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <button onClick={handleLogout} className="btn btn-danger ms-lg-2">
+                    <i className="bi bi-box-arrow-right me-1"></i>
+                    Logout
+                  </button>
+                </li>
+              </>
+            ) : (
+              <>
+                <li className="nav-item">
+                  <Link href="/login" className="btn btn-primary ms-lg-2">
+                    <i className="bi bi-box-arrow-in-right me-1"></i>
+                    Login
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link href="/signup" className="btn btn-success ms-lg-2">
+                    <i className="bi bi-person-plus me-1"></i>
+                    Sign Up
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>

@@ -16,6 +16,6 @@ export function verifyToken(token: string) {
   }
 }
 
-export function removeAuthCookie() {
+export async function removeAuthCookie() {
   cookies().delete('auth_token');
 }
